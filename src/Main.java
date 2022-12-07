@@ -1,29 +1,65 @@
-import java.io.*;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
+
+        Scanner r = new Scanner(System.in);
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("===Comprobación RRE 14-A - Régimen General Semi-Integrado===");
-        System.out.println("Se usará TCV = 0.369863");
-        System.out.println("Se usará CM = 13.3% AT2023");
+        Textos.intro();
+        int respuesta = 3;
 
+        while (respuesta != 0) {
+            Textos.menu();
 
+            respuesta = Integer.parseInt(r.nextLine());
+
+            switch (respuesta) {
+                case 0:
+                    System.out.println("Ha salido de la aplicación");
+                    break;
+                case 1:
+                    System.out.println("Seleccionó ingresar datos iniciales");
+                    // Función que agrega:
+                    // RAI
+                    // SAC
+                    break;
+                case 2:
+                    System.out.println("Seleccionó ingresar RAI");
+                    // Función que agrega:
+                    // RAI al cierre
+                    break;
+                case 3:
+                    System.out.println("Seleccionó ingresar distribuciones");
+                    // Función que agrega:
+                    // Distribuciones de enero a diciembre
+                    break;
+                case 4:
+                    System.out.println("Seleccionó ingresar GRNG");
+                    // Función que deduce los GRNG
+                    break;
+                case 5:
+                    System.out.println("Seleccionó generar RRE");
+                    // Función generadora de RRE
+                    break;
+                default:
+                    System.out.println("Ingresa una respuesta válida");
+            }
+        }
+    }
+}
+
+/*
         System.out.println("Ingrese RAI de apertura (01.01.2022)");
         int rai = Integer.valueOf(sc.nextLine());
-        System.out.flush();
         System.out.println("ingresó "+rai);
-        System.out.println("PASO 1 (OK)=============================================");
 
         System.out.println("Ingrese SAC apertura (01.01.2022");
         int sac = Integer.valueOf(sc.nextLine());
         System.out.println("ingresó "+sac);
-        System.out.println("PASO 2 (OK)=============================================");
 
         System.out.println("Ingrese distribuciones DIC-2022");
         int distribuciones = Integer.valueOf(sc.nextLine());
         System.out.println("ingresó "+distribuciones);
-        System.out.println("PASO 3 (OK)=============================================");
 
 
         //-----------------------------------
@@ -69,12 +105,13 @@ public class Main {
             distribuciones = rai;
         }
 
-        System.out.println("DETALLE.............................."+Relleno.rellenar("RAI")+Relleno.rellenar("SAC"));
-        System.out.println("Saldos de apertura..................."+Relleno.rellenar(String.valueOf(rai))+Relleno.rellenar(String.valueOf(sac)));
-        System.out.println("Reajustes (13.3%)...................."+Relleno.rellenar(String.valueOf(cmRai))+Relleno.rellenar(String.valueOf(cmSac)));
-        System.out.println("Saldos reajustados..................."+Relleno.rellenar(String.valueOf(raiReajustado))+Relleno.rellenar(String.valueOf(sacReajustado)));
-        System.out.println("Distribuciones......................."+Relleno.rellenar(String.valueOf(distribuciones))+Relleno.rellenar(String.valueOf(sacImputado)));
-        System.out.println("Saldo Remanente......................"+Relleno.rellenar(String.valueOf(raiRemanente))+Relleno.rellenar(String.valueOf(sacRemanente)));
-        System.out.println("Dist. no Imp. (Cod. 1193, F22)......."+Relleno.rellenar(String.valueOf(distribuciones_no_imputadas)));
+        System.out.println("DETALLE.............................."+Funciones.rellenar("RAI")+Funciones.rellenar("SAC"));
+        System.out.println("Saldos de apertura..................."+Funciones.rellenar(String.valueOf(rai))+Funciones.rellenar(String.valueOf(sac)));
+        System.out.println("Reajustes (13.3%)...................."+Funciones.rellenar(String.valueOf(cmRai))+Funciones.rellenar(String.valueOf(cmSac)));
+        System.out.println("Saldos reajustados..................."+Funciones.rellenar(String.valueOf(raiReajustado))+Funciones.rellenar(String.valueOf(sacReajustado)));
+        System.out.println("Distribuciones......................."+Funciones.rellenar(String.valueOf(distribuciones))+Funciones.rellenar(String.valueOf(sacImputado)));
+        System.out.println("Saldo Remanente......................"+Funciones.rellenar(String.valueOf(raiRemanente))+Funciones.rellenar(String.valueOf(sacRemanente)));
+        System.out.println("Dist. no Imp. (Cod. 1193, F22)......."+Funciones.rellenar(String.valueOf(distribuciones_no_imputadas)));
     }
 }
+*/
