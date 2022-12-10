@@ -1,4 +1,3 @@
-import java.util.Arrays;
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
@@ -10,45 +9,21 @@ public class Main {
         Scanner sc = new Scanner(System.in);
 
         //--------------------------------------------------------------------------------------------------------------
-        // Definición de las variables
+        // Registro de rentas empresariales y su inicialización
         //--------------------------------------------------------------------------------------------------------------
 
-        int raiInicial = 0;
-        int sacInicial = 0;
-
-        int reajusteRai = 0;
-        int reajusteSac = 0;
-
-        int raiInicialReajustado = 0;
-        int sacInicialReajustado = 0;
-
-        //--------------------------------------------------------------------------------------------------------------
-
-        int raiReversado = 0;
-
-        int raiEjercicio = 0;
-        int sacEjercicio = 0;
-
-        int raiAntesDeDistribuciones = 0;
-        int sacAntesDeDistribuciones = 0;
-
-        String mes = "";
-
-        String [] distribuciones = new String[12];
-        int distribucionesTotales = 0;
-
-        int sacCastigado = 0;
-
-        int raiRemanente = 0;
-        int sacRemanente = 0;
-
-        double reajusteRre = 0.133;
+        Registro rre = new Registro();
+        rre.inicializar();
 
         //--------------------------------------------------------------------------------------------------------------
         // Main Loop
         //--------------------------------------------------------------------------------------------------------------
+
         Textos.intro();
         int respuesta = 6;
+
+
+
 
         while (respuesta != 0) {
             Textos.menu();
@@ -64,13 +39,13 @@ public class Main {
                     System.out.println("Seleccionó ingresar datos iniciales");
 
                     System.out.println("Ingrese RAI de apertura (01.01.2022)");
-                    raiInicial = Integer.valueOf(sc.nextLine());
+                    rre.raiInicial = Integer.parseInt(sc.nextLine());
 
                     System.out.println("Ingrese SAC apertura (01.01.2022)");
-                    sacInicial = Integer.valueOf(sc.nextLine());
+                    rre.sacInicial = Integer.parseInt(sc.nextLine());
 
-                    System.out.println("se ingresó RAI Inicial (01.01.2022)>>> "+raiInicial);
-                    System.out.println("se ingresó SAC inicial (01.01.2022)>>> "+sacInicial);
+                    System.out.println("se ingresó RAI Inicial (01.01.2022)>>> "+rre.raiInicial);
+                    System.out.println("se ingresó SAC inicial (01.01.2022)>>> "+rre.sacInicial);
 
                     break;
 
@@ -78,12 +53,12 @@ public class Main {
                     System.out.println("Seleccionó ingresar RAI y SAC al 31.12.2022");
 
                     System.out.println("Ingrese RAI final");
-                    raiEjercicio = Integer.valueOf(sc.nextLine());
-                    System.out.println("ingresó>>> "+raiEjercicio);
+                    rre.raiEjercicio = Integer.parseInt(sc.nextLine());
+                    System.out.println("ingresó>>> "+rre.raiEjercicio);
 
                     System.out.println("Ingrese SAC del ejercicio generado en 2022");
-                    sacEjercicio = Integer.valueOf(sc.nextLine());
-                    System.out.println("ingresó>>> "+sacEjercicio);
+                    rre.sacEjercicio = Integer.parseInt(sc.nextLine());
+                    System.out.println("ingresó>>> "+rre.sacEjercicio);
 
                     break;
 
@@ -92,8 +67,8 @@ public class Main {
 
                     for( int i = 0; i <= 11; i++){
                         System.out.println("Distribuciones (históricas) Mes: "+(i+1)+"/2022");
-                        distribuciones[i] = String.valueOf(Integer.valueOf(sc.nextLine()));
-                        System.out.println(mes+" "+ (i+1) + " "+distribuciones[i]);
+                        rre.distribuciones[i] = String.valueOf(Integer.valueOf(sc.nextLine()));
+                        System.out.println(rre.mes+" "+ (i+1) + " "+rre.distribuciones[i]);
                     }
 
                     break;
@@ -106,14 +81,14 @@ public class Main {
                     // Función generadora de RRE
 
                     // 1. Reajustes
-                    raiInicialReajustado = (int) Math.ceil(raiInicial * (1 + reajusteRre));
-                    sacInicialReajustado = (int) Math.ceil(sacInicial * (1 + reajusteRre));
+                    rre.raiInicialReajustado = (int) Math.ceil(rre.raiInicial * (1 + rre.reajusteRre));
+                    rre.sacInicialReajustado = (int) Math.ceil(rre.sacInicial * (1 + rre.reajusteRre));
 
-                    reajusteRai = raiInicialReajustado - raiInicial;
-                    reajusteSac = sacInicialReajustado - sacInicial;
+                    rre.reajusteRai = rre.raiInicialReajustado - rre.raiInicial;
+                    rre.reajusteSac = rre.sacInicialReajustado - rre.sacInicial;
 
                     //2. Reverso del RAI
-                    raiReversado = raiInicialReajustado;
+                    rre.raiReversado = rre.raiInicialReajustado;
 
                     //3. RAI generado en el año
                     // >>>> ok
@@ -122,66 +97,63 @@ public class Main {
                     // >>>> ok
 
                     //5. Saldo antes de distribuciones
-                    raiAntesDeDistribuciones = raiEjercicio;
-                    sacAntesDeDistribuciones =  sacInicialReajustado + sacEjercicio;
+                    rre.raiAntesDeDistribuciones = rre.raiEjercicio;
+                    rre.sacAntesDeDistribuciones =  rre.sacInicialReajustado + rre.sacEjercicio;
 
                     //6. Procesar distribuciones
                     // sumar las distribuciones con un for
                     for(int j = 0; j <= 11; j++ ){
-                        int dist = Integer.parseInt(String.valueOf(distribuciones[j]));
-                        distribucionesTotales += dist;
+                        int dist = Integer.parseInt(String.valueOf(rre.distribuciones[j]));
+                        rre.distribucionesTotales += dist;
                     }
 
 
-                    int sacImputado = (int) Math.ceil(distribucionesTotales * 0.369863);
+                    int sacImputado = (int) Math.ceil(rre.distribucionesTotales * 0.369863);
 
-                    if(sacImputado > sacAntesDeDistribuciones){
-                        sacImputado = sacAntesDeDistribuciones;
+                    if(sacImputado > rre.sacAntesDeDistribuciones){
+                        sacImputado = rre.sacAntesDeDistribuciones;
                     }
 
-                    sacRemanente = sacAntesDeDistribuciones - sacImputado;
+                    rre.sacRemanente = rre.sacAntesDeDistribuciones - sacImputado;
 
                     // situación del RAI
 
-                    int distribuciones_no_imputadas = 0;
 
-                    raiRemanente = raiAntesDeDistribuciones - distribucionesTotales;
 
-                    if(raiRemanente < 0 ){
-                        distribuciones_no_imputadas = Math.abs(raiRemanente);
-                        raiRemanente = 0;
-                        distribucionesTotales = raiRemanente;
+                    rre.raiRemanente = rre.raiAntesDeDistribuciones - rre.distribucionesTotales;
+
+                    if(rre.raiRemanente < 0 ){
+                        rre.distribuciones_no_imputadas = Math.abs(rre.raiRemanente);
+                        rre.raiRemanente = 0;
+                        rre.distribucionesTotales = rre.raiRemanente;
                     }
 
-
-
+                    /*
                     // Reporte final
                     System.out.println("DETALLE.............................."+Funciones.rellenar("RAI")+Funciones.rellenar("SAC"));
-                    System.out.println("Saldos de apertura..................."+Funciones.rellenar(String.valueOf(raiInicial))+Funciones.rellenar(String.valueOf(sacInicial)));
-                    System.out.println("Reajustes (13.3%)...................."+Funciones.rellenar(String.valueOf(reajusteRai))+Funciones.rellenar(String.valueOf(reajusteSac)));
-                    System.out.println("Saldos reajustados..................."+Funciones.rellenar(String.valueOf(raiInicialReajustado))+Funciones.rellenar(String.valueOf(raiInicialReajustado)));
-                    System.out.println("Reverso del RAI......................"+Funciones.rellenar(String.valueOf(-raiReversado)));
-                    System.out.println("RAI del ejercicio...................."+Funciones.rellenar(String.valueOf(raiEjercicio)));
-                    System.out.println("SAC del ejercicio...................."+Funciones.rellenar(" ")+Funciones.rellenar(String.valueOf(sacEjercicio)));
-                    System.out.println("Saldos antes de distribuciones......."+Funciones.rellenar(String.valueOf(raiAntesDeDistribuciones))+Funciones.rellenar(String.valueOf(sacAntesDeDistribuciones)));
-                    System.out.println("Distribuciones......................."+Funciones.rellenar(String.valueOf(distribucionesTotales))+Funciones.rellenar(String.valueOf(sacImputado)));
-                    System.out.println("Saldo Remanente......................"+Funciones.rellenar(String.valueOf(raiRemanente))+Funciones.rellenar(String.valueOf(sacRemanente)));
-                    System.out.println("Dist. no Imp. (Cod. 1193, F22)......."+Funciones.rellenar(String.valueOf(distribuciones_no_imputadas)));
+                    System.out.println("Saldos de apertura..................."+Funciones.rellenar(String.valueOf(rre.raiInicial))+Funciones.rellenar(String.valueOf(rre.sacInicial)));
+                    System.out.println("Reajustes (13.3%)...................."+Funciones.rellenar(String.valueOf(rre.reajusteRai))+Funciones.rellenar(String.valueOf(rre.reajusteSac)));
+                    System.out.println("Saldos reajustados..................."+Funciones.rellenar(String.valueOf(rre.raiInicialReajustado))+Funciones.rellenar(String.valueOf(rre.raiInicialReajustado)));
+                    System.out.println("Reverso del RAI......................"+Funciones.rellenar(String.valueOf(-rre.raiReversado)));
+                    System.out.println("RAI del ejercicio...................."+Funciones.rellenar(String.valueOf(rre.raiEjercicio)));
+                    System.out.println("SAC del ejercicio...................."+Funciones.rellenar(" ")+Funciones.rellenar(String.valueOf(rre.sacEjercicio)));
+                    System.out.println("Saldos antes de distribuciones......."+Funciones.rellenar(String.valueOf(rre.raiAntesDeDistribuciones))+Funciones.rellenar(String.valueOf(rre.sacAntesDeDistribuciones)));
+                    System.out.println("Distribuciones......................."+Funciones.rellenar(String.valueOf(rre.distribucionesTotales))+Funciones.rellenar(String.valueOf(sacImputado)));
+                    System.out.println("Saldo Remanente......................"+Funciones.rellenar(String.valueOf(rre.raiRemanente))+Funciones.rellenar(String.valueOf(rre.sacRemanente)));
+                    System.out.println("Dist. no Imp. (Cod. 1193, F22)......."+Funciones.rellenar(String.valueOf(rre.distribuciones_no_imputadas)));
 
                     System.out.println("*******");
 
                     for(int j = 0; j <= 11; j++ ){
-                        System.out.println("Mes: "+(j+1)+": "+ distribuciones[j]);
+                        System.out.println("Mes: "+(j+1)+": "+ rre.distribuciones[j]);
                     }
-
+                    */
                     break;
 
                 default:
                     System.out.println("Ingresa una respuesta válida");
                     break;
             }
-
-            Textos.limpiar();
         }
     }
 }
