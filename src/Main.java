@@ -180,6 +180,8 @@ public class Main {
                     System.out.println("Ingresa una respuesta válida");
                     break;
             }
+
+            Textos.limpiar();
         }
     }
 }
