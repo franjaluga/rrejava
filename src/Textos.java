@@ -26,4 +26,9 @@ public class Textos {
         System.out.flush();
         return null;
     }
+
+    public static String salir(){
+        System.out.println("Ha salido de la aplicación");
+        return null;
+    }
 }
