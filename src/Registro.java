@@ -1,6 +1,20 @@
 import java.util.Scanner;
 
 public class Registro {
+
+        double CM_ENE;
+        double CM_FEB;
+        double CM_MAR;
+        double CM_ABR;
+        double CM_MAY;
+        double CM_JUN;
+        double CM_JUL;
+        double CM_AGO;
+        double CM_SEP;
+        double CM_OCT;
+        double CM_NOV;
+        double CM_DIC;
+
         int raiInicial = 0;
         int sacInicial = 0;
         int reajusteRai = 0;
@@ -23,6 +37,19 @@ public class Registro {
         Scanner sc_Registro = new Scanner(System.in);
 
         public void inicializar(){
+            CM_ENE = 0.125;
+            CM_FEB = 0.111;
+            CM_MAR = 0.108;
+            CM_ABR = 0.088;
+            CM_MAY = 0.073;
+            CM_JUN = 0.060;
+            CM_JUL = 0.050;
+            CM_AGO = 0.036;
+            CM_SEP = 0.024;
+            CM_OCT = 0.015;
+            CM_NOV = 0.001;
+
+
             raiInicial = 0;
             sacInicial = 0;
             reajusteRai = 0;
@@ -35,19 +62,10 @@ public class Registro {
             raiAntesDeDistribuciones = 0;
             sacAntesDeDistribuciones = 0;
             mes = "";
-            distribuciones[0] = String.valueOf(0);
-            distribuciones[1] = String.valueOf(0);
-            distribuciones[2] = String.valueOf(0);
-            distribuciones[3] = String.valueOf(0);
-            distribuciones[4] = String.valueOf(0);
-            distribuciones[5] = String.valueOf(0);
-            distribuciones[6] = String.valueOf(0);
-            distribuciones[7] = String.valueOf(0);
-            distribuciones[8] = String.valueOf(0);
-            distribuciones[9] = String.valueOf(0);
-            distribuciones[10] = String.valueOf(0);
-            distribuciones[11] = String.valueOf(0);
 
+            for(int i = 0; i <=11; i++){
+                distribuciones[i] = String.valueOf(0);
+            }
             distribucionesTotales = 0;
             sacCastigado = 0;
             raiRemanente = 0;
