@@ -1,20 +1,6 @@
 import java.util.Scanner;
 
 public class Registro {
-
-        double CM_ENE;
-        double CM_FEB;
-        double CM_MAR;
-        double CM_ABR;
-        double CM_MAY;
-        double CM_JUN;
-        double CM_JUL;
-        double CM_AGO;
-        double CM_SEP;
-        double CM_OCT;
-        double CM_NOV;
-        double CM_DIC;
-
         int raiInicial = 0;
         int sacInicial = 0;
         int reajusteRai = 0;
@@ -27,7 +13,7 @@ public class Registro {
         int raiAntesDeDistribuciones = 0;
         int sacAntesDeDistribuciones = 0;
         String mes = "";
-        String [] distribuciones = new String[12];
+        int [] distribuciones = new int[12];
         int distribucionesTotales = 0;
         int sacCastigado = 0;
         int raiRemanente = 0;
@@ -37,18 +23,6 @@ public class Registro {
         Scanner sc_Registro = new Scanner(System.in);
 
         public void inicializar(){
-            CM_ENE = 0.125;
-            CM_FEB = 0.111;
-            CM_MAR = 0.108;
-            CM_ABR = 0.088;
-            CM_MAY = 0.073;
-            CM_JUN = 0.060;
-            CM_JUL = 0.050;
-            CM_AGO = 0.036;
-            CM_SEP = 0.024;
-            CM_OCT = 0.015;
-            CM_NOV = 0.001;
-
 
             raiInicial = 0;
             sacInicial = 0;
@@ -64,7 +38,7 @@ public class Registro {
             mes = "";
 
             for(int i = 0; i <=11; i++){
-                distribuciones[i] = String.valueOf(0);
+                distribuciones[i] = 0;
             }
             distribucionesTotales = 0;
             sacCastigado = 0;
@@ -115,7 +89,7 @@ public class Registro {
 
             for( int i = 0; i <= 11; i++){
                 System.out.println("Distribuciones (históricas) Mes: "+(i+1)+"/2022");
-                this.distribuciones[i] = String.valueOf(Integer.valueOf(sc_Registro.nextLine()));
+                this.distribuciones[i] = Integer.parseInt(sc_Registro.nextLine());
                 System.out.println(this.mes+" "+ (i+1) + " "+this.distribuciones[i]);
             }
         }
@@ -150,9 +124,24 @@ public class Registro {
             this.sacAntesDeDistribuciones =  this.sacInicialReajustado + this.sacEjercicio;
 
             //6. Procesar distribuciones
+
+            distribuciones[0] *= Constantes.CM_ENE;
+            distribuciones[1] *= Constantes.CM_FEB;
+            distribuciones[2] *= Constantes.CM_MAR;
+            distribuciones[3] *= Constantes.CM_ABR;
+            distribuciones[4] *= Constantes.CM_MAY;
+            distribuciones[5] *= Constantes.CM_JUN;
+            distribuciones[6] *= Constantes.CM_JUL;
+            distribuciones[7] *= Constantes.CM_AGO;
+            distribuciones[8] *= Constantes.CM_SEP;
+            distribuciones[9] *= Constantes.CM_OCT;
+            distribuciones[10] *= Constantes.CM_NOV;
+            distribuciones[11] *= Constantes.CM_DIC;
+
+
             // sumar las distribuciones con un for
             for(int j = 0; j <= 11; j++ ){
-                int dist = Integer.parseInt(this.distribuciones[j]);
+                int dist = this.distribuciones[j];
                 this.distribucionesTotales += dist;
             }
 
@@ -198,7 +187,6 @@ public class Registro {
              }
 
         }
-
 
         public void response_case_default(){
             System.out.println("Ingresa una respuesta válida");
