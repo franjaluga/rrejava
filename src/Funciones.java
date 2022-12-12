@@ -5,7 +5,7 @@ public class Funciones {
         int largo_dato = dato.length();
 
         String vacio = " ";
-        int maximo = 9;
+        int maximo = 10;
 
         for(int i = largo_dato; i <= maximo; i++){
             vacio = vacio + " ";

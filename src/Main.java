@@ -13,8 +13,9 @@ public class Main {
         // Registro de rentas empresariales y su inicialización
         //--------------------------------------------------------------------------------------------------------------
 
-        Registro rre = new Registro();
-        rre.inicializar();
+        // Instancia el manejador
+        Manejador manejador = new Manejador();
+        manejador.instanciarLibros();
 
         //--------------------------------------------------------------------------------------------------------------
         // Main Loop (until close by: user)
@@ -34,22 +35,22 @@ public class Main {
                     Textos.salir();
                     break;
                 case 1:
-                    rre.response_case1();
+                    manejador.response_case1();
                     break;
                 case 2:
-                    rre.response_case2();
+                    manejador.response_case2();
                     break;
                 case 3:
-                    rre.response_case3();
+                    manejador.response_case3();
                     break;
                 case 4:
-                    rre.response_case4();
+                    manejador.response_case4();
                     break;
                 case 5:
-                    rre.response_case5();
+                    manejador.response_case5();
                     break;
                 default:
-                    rre.response_case_default();
+                    manejador.response_case_default();
                     break;
             }
         }while (respuesta != 0);
