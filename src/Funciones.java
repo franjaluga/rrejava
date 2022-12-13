@@ -1,8 +1,8 @@
 public class Funciones {
 
-    public static String rellenar(String dato){
-        String newData = dato;
-        int largo_dato = dato.length();
+    public static String rellenar(int dato){
+        String newData = String.valueOf(dato);
+        int largo_dato = newData.length();
 
         String vacio = " ";
         int maximo = 10;

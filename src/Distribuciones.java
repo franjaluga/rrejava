@@ -33,13 +33,12 @@ public class Distribuciones {
         distribuciones[10] *= Constantes.DIR_CM_NOV;
         distribuciones[11] *= Constantes.DIR_CM_DIC;
 
-
     }
 
-    public void sumaDistribucioines(){
+    public void sumaDistribuciones(){
         for(int j = 0; j <= 11; j++ ){
-            int distr = this.distribuciones[j];
-            this.distribucionesTotales += distr;
+            distribucionesTotales += this.distribuciones[j];
+            setDistribucionesTotales(distribucionesTotales);
         }
     }
 }

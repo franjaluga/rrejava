@@ -78,7 +78,7 @@ public class Manejador {
         dist.procesarDistribuciones();
 
         // sumar las distribuciones con un for
-        dist.sumaDistribucioines();
+        dist.sumaDistribuciones();
 
 
         int sacImputado = (int) Math.ceil(dist.getDistribucionesTotales() * 0.369863);
@@ -99,19 +99,20 @@ public class Manejador {
             dist.setDistribucionesTotales(rai.getSaldoFinal());
         }
 
-
-        // Reporte final
-        System.out.println("DETALLE........................."+Funciones.rellenar("RAI")+Funciones.rellenar("SAC"));
-        System.out.println("Saldos de apertura.............."+Funciones.rellenar(String.valueOf(rai.getSaldoInicial())+Funciones.rellenar(String.valueOf(sac.getSaldoInicial()))));
-        System.out.println("Reajustes (13.3%)..............."+Funciones.rellenar(String.valueOf(rai.getReajuste())+Funciones.rellenar(String.valueOf(sac.getReajuste()))));
-        System.out.println("Saldos reajustados.............."+Funciones.rellenar(String.valueOf(rai.getSaldoReajustado())+Funciones.rellenar(String.valueOf(sac.getSaldoReajustado()))));
-        System.out.println("Reverso del RAI................."+Funciones.rellenar(String.valueOf(-rai.getReversoSaldo())));
-        System.out.println("RAI del ejercicio..............."+Funciones.rellenar(String.valueOf(rai.getAumentosDelEjercicio())));
-        System.out.println("SAC del ejercicio..............."+Funciones.rellenar(" ")+Funciones.rellenar(String.valueOf(sac.getAumentosDelEjercicio())));
-        System.out.println("Saldos antes de distribuciones.."+Funciones.rellenar(String.valueOf(rai.getSaldoAntesDeDistribuciones()))+Funciones.rellenar(String.valueOf(sac.getSaldoAntesDeDistribuciones())));
-        System.out.println("Distribuciones.................."+Funciones.rellenar(String.valueOf(dist.getDistribucionesTotales()))+Funciones.rellenar(String.valueOf(sacImputado)));
-        System.out.println("Saldo Remanente................."+Funciones.rellenar(String.valueOf(rai.getSaldoFinal()))+Funciones.rellenar(String.valueOf(sac.getSaldoFinal())));
-        System.out.println("Dist. no Imp. (Cod. 1193, F22).."+Funciones.rellenar(String.valueOf(rai.getDistribuciones_no_imputadas())));
+        //-----------------------------------
+        // REPORTE FINAL MODULARIZADO
+        //-----------------------------------
+        imprimirTitulos();
+        imprimirSaldosIniciales();
+        imprimirReajustes();
+        imprimirSaldoReajustado();
+        imprimirReversos();
+        imprimirRaiDelEjercicio();
+        imprimirSacDelEjercicio();
+        imprimirSaldoAntesDeDistribuciones();
+        imprimirDistribuciones(sacImputado);
+        imprimirSaldoRemanente();
+        imprimirDistNoImputadas();
 
         System.out.println("*******");
 
@@ -123,4 +124,68 @@ public class Manejador {
     public void response_case_default(){
         System.out.println("Ingresa una respuesta válida");
     }
+
+    //     FUNCIONES DEL REPORTE
+    public void imprimirTitulos(){
+        System.out.println("DETALLE........................."+"-----RAI----"+"-----SAC----");
+    }
+
+    public void imprimirSaldosIniciales(){
+        String dato1 = Funciones.rellenar(rai.getSaldoInicial());
+        String dato2 = Funciones.rellenar(sac.getSaldoInicial());
+
+        System.out.println("Saldos de apertura.............."+dato1+dato2);
+    }
+
+    public void imprimirReajustes(){
+        String dato1 = Funciones.rellenar(rai.getReajuste());
+        String dato2 = Funciones.rellenar(sac.getReajuste());
+        System.out.println("Reajustes (13.3%)..............."+dato1+dato2);
+    }
+
+    public void imprimirSaldoReajustado(){
+        String dato1 =Funciones.rellenar(rai.getSaldoReajustado());
+        String dato2 =Funciones.rellenar(sac.getSaldoReajustado());
+        System.out.println("Saldos reajustados.............."+dato1+dato2);
+    }
+
+    public void imprimirReversos(){
+        String dato1 = Funciones.rellenar(-rai.getReversoSaldo());
+        System.out.println("Reverso del RAI................."+dato1);
+    }
+
+    public void imprimirRaiDelEjercicio(){
+        String dato1 = Funciones.rellenar(rai.getAumentosDelEjercicio());
+        System.out.println("RAI del ejercicio..............."+dato1);
+    }
+
+    public void imprimirSacDelEjercicio(){
+        String dato1 = "            ";
+        String dato2 = Funciones.rellenar(sac.getAumentosDelEjercicio());
+        System.out.println("SAC del ejercicio..............."+dato1+dato2);
+    }
+
+    public void imprimirSaldoAntesDeDistribuciones(){
+        String dato1 = Funciones.rellenar(rai.getSaldoAntesDeDistribuciones());
+        String dato2 = Funciones.rellenar(sac.getSaldoAntesDeDistribuciones());
+        System.out.println("Saldos antes de distribuciones.."+dato1+dato2);
+    }
+
+    public void imprimirDistribuciones(int dato3){
+        String dato1 = Funciones.rellenar(dist.getDistribucionesTotales());
+        String dato2 = Funciones.rellenar(dato3);
+        System.out.println("Distribuciones.................."+dato1+dato2);
+    }
+
+    public void imprimirSaldoRemanente(){
+        String dato1 = Funciones.rellenar(rai.getSaldoFinal());
+        String dato2 = Funciones.rellenar(sac.getSaldoFinal());
+        System.out.println("Saldo Remanente................."+dato1+dato2);
+    }
+
+    public void imprimirDistNoImputadas(){
+        String dato1 = Funciones.rellenar(rai.getDistribuciones_no_imputadas());
+        System.out.println("Dist. no Imp. (Cod. 1193, F22).."+dato1);
+    }
+
 }
