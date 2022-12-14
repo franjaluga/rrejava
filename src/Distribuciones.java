@@ -15,9 +15,10 @@ public class Distribuciones {
         return distribucionesTotales;
     }
 
-    public void setDistribucionesTotales(int distribucionesTotales) {
-        this.distribucionesTotales = distribucionesTotales;
+    public void setDistribucionesTotales(int dt){
+        this.distribucionesTotales = dt;
     }
+
 
     public void procesarDistribuciones(){
         distribuciones[0] *= Constantes.DIR_CM_ENE;
@@ -35,10 +36,11 @@ public class Distribuciones {
 
     }
 
-    public void sumaDistribuciones(){
+    public int sumaDistribuciones(){
         for(int j = 0; j <= 11; j++ ){
             distribucionesTotales += this.distribuciones[j];
             setDistribucionesTotales(distribucionesTotales);
         }
+        return distribucionesTotales;
     }
 }

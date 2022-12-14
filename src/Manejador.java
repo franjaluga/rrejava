@@ -94,9 +94,9 @@ public class Manejador {
         rai.setSaldoFinal(rai.getSaldoAntesDeDistribuciones()- dist.getDistribucionesTotales());
 
         if(rai.getSaldoFinal() < 0 ){
-            rai.setDistribuciones_no_imputadas(Math.abs(rai.getSaldoFinal()));
+            rai.setDistribuciones_no_imputadas(Math.abs(dist.getDistribucionesTotales()-rai.getSaldoAntesDeDistribuciones()));
             rai.setSaldoFinal(0);
-            dist.setDistribucionesTotales(rai.getSaldoFinal());
+            dist.setDistribucionesTotales(rai.getSaldoAntesDeDistribuciones());
         }
 
         //-----------------------------------
