@@ -1,56 +1,41 @@
 import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
-        //--------------------------------------------------------------------------------------------------------------
-        // Scanners
-        //--------------------------------------------------------------------------------------------------------------
 
-        Scanner r = new Scanner(System.in);
+        PrintText.titles();
+        TaxBook currentBook = new TaxBook();
+        currentBook.createBook();
 
-        //--------------------------------------------------------------------------------------------------------------
-        // Registro de rentas empresariales y su inicialización
-        //--------------------------------------------------------------------------------------------------------------
-
-        // Instancia el manejador
-        Manejador manejador = new Manejador();
-        manejador.instanciarLibros();
-
-        //--------------------------------------------------------------------------------------------------------------
-        // Main Loop (until close by: user)
-        //--------------------------------------------------------------------------------------------------------------
-
-        Textos.intro();
-
-        int respuesta;
+        Scanner scanConsoleUserResponse = new Scanner(System.in);
+        TaxBook runResponse = new TaxBook();
+        int consoleUserMenuResponse;
 
         do {
-            Textos.menu();
-
-            respuesta = Integer.parseInt(r.nextLine());
-
-            switch (respuesta) {
+            PrintText.menu();
+            consoleUserMenuResponse = Integer.parseInt(scanConsoleUserResponse.nextLine());
+            switch (consoleUserMenuResponse) {
                 case 0:
-                    Textos.salir();
+                    PrintText.exit();
                     break;
                 case 1:
-                    manejador.response_case1();
+                    runResponse.case1();
                     break;
                 case 2:
-                    manejador.response_case2();
+                    runResponse.case2();
                     break;
                 case 3:
-                    manejador.response_case3();
+                    //runResponse.case3();
                     break;
                 case 4:
-                    manejador.response_case4();
+                    //runResponse.case4();
                     break;
                 case 5:
-                    manejador.response_case5();
+                    //runResponse.case5();
                     break;
                 default:
-                    manejador.response_case_default();
+                    //runResponse.caseDefault();
                     break;
             }
-        }while (respuesta != 0);
+        }while (consoleUserMenuResponse != 0);
     }
 }

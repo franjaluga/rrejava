@@ -1,4 +1,4 @@
-public class Distribuciones {
+public class Dis {
     int [] distribuciones;
     int distribucionesTotales;
 

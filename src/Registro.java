@@ -20,41 +20,50 @@ public class Registro {
         distribuciones_no_imputadas = 0;
     }
 
-    //-------------------------------------------------------------------------------------------------------------
-    //  GETTERS Y SETTERS
-    //-------------------------------------------------------------------------------------------------------------
 
-    public int getSaldoInicial() {
-        return saldoInicial;
-    }
-
+    // METODOS REVISADOS
     public void setSaldoInicial(int saldoInicial) {
         this.saldoInicial = saldoInicial;
     }
-
-    public int getReajuste() {
-        return reajuste;
-    }
-
-    public void setReajuste(int reajuste) {
-        this.reajuste = reajuste;
-    }
-
-    public int getSaldoReajustado() {
-        return saldoReajustado;
-    }
-
-    public void setSaldoReajustado(int saldoReajustado) {
-        this.saldoReajustado = saldoReajustado;
-    }
-
-    public int getAumentosDelEjercicio() {
-        return aumentosDelEjercicio;
+    public int getSaldoInicial() {
+        return saldoInicial;
     }
 
     public void setAumentosDelEjercicio(int aumentosDelEjercicio) {
         this.aumentosDelEjercicio = aumentosDelEjercicio;
     }
+    public int getAumentosDelEjercicio() {
+        return aumentosDelEjercicio;
+    }
+
+    public void setReajuste(int reajuste) {
+        this.reajuste = reajuste;
+    }
+    public int getReajuste() {
+        return reajuste;
+    }
+
+    public void setSaldoReajustado(int saldoReajustado) {
+        this.saldoReajustado = saldoReajustado;
+    }
+    public int getSaldoReajustado() {
+        return saldoReajustado;
+    }
+
+
+
+
+
+    //-------------------------------------------------------------------------------------------------------------
+    //  GETTERS Y SETTERS
+    //-------------------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
 
     public int getSaldoAntesDeDistribuciones() {
         return saldoAntesDeDistribuciones;

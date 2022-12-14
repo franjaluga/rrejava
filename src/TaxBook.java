@@ -1,66 +1,90 @@
 import java.util.Scanner;
 
-public class Manejador {
-    Scanner sc_Registro = new Scanner(System.in);
+public class TaxBook{
     Rai rai = new Rai();
     Sac sac = new Sac();
-    Distribuciones dist =  new Distribuciones();
+    Dis dist =  new Dis();
 
-    public void instanciarLibros(){
-        // inicializa el Rai
+    Scanner consoleUserSubMenuResponse = new Scanner(System.in);
+
+    public void createBook(){
         rai.inicializar();
-        // Inicializa el Sac
         sac.inicializar();
-        // Inicializa distribuciones
         dist.inicializar();
     }
 
-    public void response_case1(){
+    public void case1(){
         System.out.println("Seleccionó ingresar datos iniciales");
         System.out.println("Ingrese RAI de apertura (01.01.2022)");
-        rai.setSaldoInicial(Integer.parseInt(sc_Registro.nextLine()));
+        rai.setSaldoInicial(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
+
         System.out.println("Ingrese SAC apertura (01.01.2022)");
-        sac.setSaldoInicial(Integer.parseInt(sc_Registro.nextLine()));
-        System.out.println("se ingresó RAI Inicial (01.01.2022)>>> "+rai.getSaldoInicial());
-        System.out.println("se ingresó SAC inicial (01.01.2022)>>> "+sac.getSaldoInicial());
-    }
+        sac.setSaldoInicial(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
 
-    public void response_case2(){
-        System.out.println("Seleccionó ingresar RAI y SAC al 31.12.2022");
-        System.out.println("Ingrese RAI final");
-        rai.setAumentosDelEjercicio(Integer.parseInt(sc_Registro.nextLine()));
-        System.out.println("ingresó>>> "+rai.getAumentosDelEjercicio());
-        System.out.println("Ingrese SAC del ejercicio generado en 2022");
-        sac.setAumentosDelEjercicio(Integer.parseInt(sc_Registro.nextLine()));
-        System.out.println("ingresó>>> "+sac.getAumentosDelEjercicio());
-    }
+        System.out.println("| RAI(01.01.2022): "+rai.getSaldoInicial()+" | SAC(01.01.2022): "+sac.getSaldoInicial()+" |");
 
-    public void response_case3(){
-        System.out.println("Seleccionó ingresar distribuciones");
-        for( int i = 0; i <= 11; i++){
-            System.out.println("Distribuciones (históricas) Mes: "+(i+1)+"/2022");
-            dist.distribuciones[i] = Integer.parseInt(sc_Registro.nextLine());
-            System.out.println("mes x "+ (i+1) + " "+dist.distribuciones[i]);
-        }
-    }
-
-    public void response_case4(){
-        System.out.println("Seleccionó ingresar GRNG");
-        // Función que deduce los GRNG
-    }
-
-
-    public void response_case5(){
-        // Función generadora de RRE
-        System.out.println("Seleccionó generar RRE");
-
-        // 1. Reajustes
         rai.setSaldoReajustado((int) Math.ceil(rai.saldoInicial * (1 + Constantes.CM_22)));
         sac.setSaldoReajustado((int) Math.ceil(sac.saldoInicial * (1 + Constantes.CM_22)));
 
         rai.setReajuste(rai.getSaldoReajustado() - rai.getSaldoInicial());
         sac.setReajuste(sac.getSaldoReajustado() - sac.getSaldoInicial());
 
+        System.out.println("| RAI(Reajuste): "+rai.getReajuste()+" | SAC(Reajuste): "+sac.getReajuste()+" |");
+
+        actualizarSaldosantesDeDistribuciones();
+
+    }
+
+    public void case2(){
+        System.out.println("Seleccionó ingresar RAI y SAC al 31.12.2022");
+        System.out.println("Ingrese RAI final");
+        rai.setAumentosDelEjercicio(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
+
+        System.out.println("Ingrese SAC del ejercicio generado en 2022");
+        sac.setAumentosDelEjercicio(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
+
+        System.out.println("| RAI(31.12.2022): "+rai.getAumentosDelEjercicio()+" | SAC(31.12.2022): "+sac.getAumentosDelEjercicio()+" |");
+        actualizarSaldosantesDeDistribuciones();
+    }
+
+
+    public void actualizarSaldosantesDeDistribuciones(){
+        rai.setSaldoAntesDeDistribuciones(rai.getSaldoReajustado());
+        sac.setSaldoAntesDeDistribuciones(sac.getSaldoReajustado() + sac.getAumentosDelEjercicio());
+        System.out.println("| RAI(ant. de dist.: "+rai.getSaldoAntesDeDistribuciones()+" | SAC(ant. de dist.: "+sac.getSaldoAntesDeDistribuciones()+" |");
+    }
+
+
+    //-------------------------------------------------------------------------------------------------------
+    // DE ACÁ CONTINUAR REVISANDO   |---->
+    //-------------------------------------------------------------------------------------------------------
+
+
+    /*
+
+
+
+    public void case3(){
+        System.out.println("Seleccionó ingresar distribuciones");
+        for( int i = 0; i <= 11; i++){
+            System.out.println("Distribuciones (históricas) Mes: "+(i+1)+"/2022");
+            dist.distribuciones[i] = Integer.parseInt(consoleUserSubMenuResponse.nextLine());
+            System.out.println("mes x "+ (i+1) + " "+dist.distribuciones[i]);
+        }
+    }
+
+    public void case4(){
+        System.out.println("Seleccionó ingresar GRNG");
+        // Función que deduce los GRNG
+    }
+
+
+    public void case5(){
+        // Función generadora de RRE
+        System.out.println("Seleccionó generar RRE");
+
+        // 1. Reajustes
+        --OK
         //2. Reverso del RAI
         rai.setReversoSaldo(rai.getSaldoReajustado());
 
@@ -71,8 +95,7 @@ public class Manejador {
         // >>>> ok
 
         //5. Saldo antes de distribuciones
-        rai.setSaldoAntesDeDistribuciones(rai.getSaldoReajustado());
-        sac.setSaldoAntesDeDistribuciones(sac.getSaldoReajustado() + sac.getAumentosDelEjercicio());
+            >>> OK
 
         //6. Procesar distribuciones
         dist.procesarDistribuciones();
@@ -121,7 +144,7 @@ public class Manejador {
         }
     }
 
-    public void response_case_default(){
+    public void caseDefault(){
         System.out.println("Ingresa una respuesta válida");
     }
 
@@ -187,5 +210,6 @@ public class Manejador {
         String dato1 = Funciones.rellenar(rai.getDistribuciones_no_imputadas());
         System.out.println("Dist. no Imp. (Cod. 1193, F22).."+dato1);
     }
+    */
 
 }
