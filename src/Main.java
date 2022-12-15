@@ -24,7 +24,7 @@ public class Main {
                     runResponse.case2();
                     break;
                 case 3:
-                    //runResponse.case3();
+                    runResponse.case3();
                     break;
                 case 4:
                     //runResponse.case4();

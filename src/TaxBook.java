@@ -21,7 +21,6 @@ public class TaxBook{
         System.out.println("Ingrese SAC apertura (01.01.2022)");
         sac.setSaldoInicial(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
 
-        System.out.println("| RAI(01.01.2022): "+rai.getSaldoInicial()+" | SAC(01.01.2022): "+sac.getSaldoInicial()+" |");
 
         rai.setSaldoReajustado((int) Math.ceil(rai.saldoInicial * (1 + Constantes.CM_22)));
         sac.setSaldoReajustado((int) Math.ceil(sac.saldoInicial * (1 + Constantes.CM_22)));
@@ -29,9 +28,7 @@ public class TaxBook{
         rai.setReajuste(rai.getSaldoReajustado() - rai.getSaldoInicial());
         sac.setReajuste(sac.getSaldoReajustado() - sac.getSaldoInicial());
 
-        System.out.println("| RAI(Reajuste): "+rai.getReajuste()+" | SAC(Reajuste): "+sac.getReajuste()+" |");
-
-        actualizarSaldosantesDeDistribuciones();
+        updateAndPrintBalance();
 
     }
 
@@ -43,15 +40,34 @@ public class TaxBook{
         System.out.println("Ingrese SAC del ejercicio generado en 2022");
         sac.setAumentosDelEjercicio(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
 
-        System.out.println("| RAI(31.12.2022): "+rai.getAumentosDelEjercicio()+" | SAC(31.12.2022): "+sac.getAumentosDelEjercicio()+" |");
-        actualizarSaldosantesDeDistribuciones();
+        updateAndPrintBalance();
     }
 
 
-    public void actualizarSaldosantesDeDistribuciones(){
-        rai.setSaldoAntesDeDistribuciones(rai.getSaldoReajustado());
+    public void updateBalance(){
+        rai.setReversoSaldo(rai.getSaldoReajustado());
+        rai.setSaldoAntesDeDistribuciones(rai.getAumentosDelEjercicio());
         sac.setSaldoAntesDeDistribuciones(sac.getSaldoReajustado() + sac.getAumentosDelEjercicio());
+    }
+
+    public void printBalanceUpdated(){
+        System.out.println("| RAI(01.01.2022): "+rai.getSaldoInicial()+" | SAC(01.01.2022): "+sac.getSaldoInicial()+" |");
+        System.out.println("| RAI(Reajuste): "+rai.getReajuste()+" | SAC(Reajuste): "+sac.getReajuste()+" |");
+        System.out.println("| RAI REVERSO: "+-rai.getReversoSaldo());
+        System.out.println("| SAC del Año: "+"----------------"+sac.getAumentosDelEjercicio());
         System.out.println("| RAI(ant. de dist.: "+rai.getSaldoAntesDeDistribuciones()+" | SAC(ant. de dist.: "+sac.getSaldoAntesDeDistribuciones()+" |");
+    }
+
+    public void updateAndPrintBalance(){
+        updateBalance();
+        printBalanceUpdated();
+    }
+
+    public void case3(){
+        System.out.println("Seleccionó ingresar distribuciones");
+        dist.setDistribucionesMensuales();
+        System.out.println("Se ingresaron: "+ dist.getDistribucionesTotales());
+
     }
 
 
@@ -61,18 +77,6 @@ public class TaxBook{
 
 
     /*
-
-
-
-    public void case3(){
-        System.out.println("Seleccionó ingresar distribuciones");
-        for( int i = 0; i <= 11; i++){
-            System.out.println("Distribuciones (históricas) Mes: "+(i+1)+"/2022");
-            dist.distribuciones[i] = Integer.parseInt(consoleUserSubMenuResponse.nextLine());
-            System.out.println("mes x "+ (i+1) + " "+dist.distribuciones[i]);
-        }
-    }
-
     public void case4(){
         System.out.println("Seleccionó ingresar GRNG");
         // Función que deduce los GRNG
@@ -86,7 +90,7 @@ public class TaxBook{
         // 1. Reajustes
         --OK
         //2. Reverso del RAI
-        rai.setReversoSaldo(rai.getSaldoReajustado());
+        -- ok
 
         //3. RAI generado en el año
         // >>>> ok
