@@ -70,6 +70,14 @@ public class TaxBook{
 
     }
 
+    public void case5(){
+        // LOGICA DE PROCESAR LOS RETIROS
+        System.out.println("Seleccionó generar RRE");
+        System.out.println(dist.procesarDistribuciones());
+
+        // DELEGAR IMPRESIÓN AL UPDATE BALANCE
+
+    }
 
     //-------------------------------------------------------------------------------------------------------
     // DE ACÁ CONTINUAR REVISANDO   |---->
@@ -84,29 +92,6 @@ public class TaxBook{
 
 
     public void case5(){
-        // Función generadora de RRE
-        System.out.println("Seleccionó generar RRE");
-
-        // 1. Reajustes
-        --OK
-        //2. Reverso del RAI
-        -- ok
-
-        //3. RAI generado en el año
-        // >>>> ok
-
-        //4. SAC generado en el año
-        // >>>> ok
-
-        //5. Saldo antes de distribuciones
-            >>> OK
-
-        //6. Procesar distribuciones
-        dist.procesarDistribuciones();
-
-        // sumar las distribuciones con un for
-        dist.sumaDistribuciones();
-
 
         int sacImputado = (int) Math.ceil(dist.getDistribucionesTotales() * 0.369863);
 

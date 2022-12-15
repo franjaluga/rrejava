@@ -30,7 +30,7 @@ public class Main {
                     //runResponse.case4();
                     break;
                 case 5:
-                    //runResponse.case5();
+                    runResponse.case5();
                     break;
                 default:
                     //runResponse.caseDefault();

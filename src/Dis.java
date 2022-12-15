@@ -2,11 +2,16 @@ import java.util.Scanner;
 
 public class Dis {
     Scanner consoleUserDistributionResponse = new Scanner(System.in);
+
     int [] distribuciones;
-    int distribucionesTotales;
+    int distribucionesTotales =0;
+    int [] distribuciones_reajustadas;
+    int distribucionesTotalesReajustadas=0;
+
 
     public void inicializar(){
         distribuciones = new int[12];
+        distribuciones_reajustadas = new int[12];
 
         distribuciones[0] = 0;
         distribuciones[1] = 0;
@@ -20,6 +25,19 @@ public class Dis {
         distribuciones[9] = 0;
         distribuciones[10] = 0;
         distribuciones[11] = 0;
+
+        distribuciones_reajustadas[0] = 0;
+        distribuciones_reajustadas[1] = 0;
+        distribuciones_reajustadas[2] = 0;
+        distribuciones_reajustadas[3] = 0;
+        distribuciones_reajustadas[4] = 0;
+        distribuciones_reajustadas[5] = 0;
+        distribuciones_reajustadas[6] = 0;
+        distribuciones_reajustadas[7] = 0;
+        distribuciones_reajustadas[8] = 0;
+        distribuciones_reajustadas[9] = 0;
+        distribuciones_reajustadas[10] = 0;
+        distribuciones_reajustadas[11] = 0;
 
         setDistribucionesTotales();
     }
@@ -105,8 +123,30 @@ public class Dis {
         System.out.println("Diciembre: "+distribuciones[11]);
     }
 
+    public int procesarDistribuciones(){
 
+        distribuciones_reajustadas[0] *= Constantes.DIR_CM_ENE;
+        distribuciones_reajustadas[1] *= Constantes.DIR_CM_FEB;
+        distribuciones_reajustadas[2] *= Constantes.DIR_CM_MAR;
+        distribuciones_reajustadas[3] *= Constantes.DIR_CM_ABR;
+        distribuciones_reajustadas[4] *= Constantes.DIR_CM_MAY;
+        distribuciones_reajustadas[5] *= Constantes.DIR_CM_JUN;
+        distribuciones_reajustadas[6] *= Constantes.DIR_CM_JUL;
+        distribuciones_reajustadas[7] *= Constantes.DIR_CM_AGO;
+        distribuciones_reajustadas[8] *= Constantes.DIR_CM_SEP;
+        distribuciones_reajustadas[9] *= Constantes.DIR_CM_OCT;
+        distribuciones_reajustadas[10] *= Constantes.DIR_CM_NOV;
+        distribuciones_reajustadas[11] *= Constantes.DIR_CM_DIC;
+        int data = sumaDistribucionesReajustadas();
+        return data;
+    }
 
+    public int sumaDistribucionesReajustadas(){
+        for(int j = 0; j <= 11; j++ ){
+            distribucionesTotalesReajustadas += this.distribuciones_reajustadas[j];
+        }
+        return distribucionesTotalesReajustadas;
+    }
 
 
     //----------A REVISION ----->
@@ -115,29 +155,9 @@ public class Dis {
     public int getDistribucionesTotales() {
         return distribucionesTotales;
     }
-    public void procesarDistribuciones(){
-        distribuciones[0] *= Constantes.DIR_CM_ENE;
-        distribuciones[1] *= Constantes.DIR_CM_FEB;
-        distribuciones[2] *= Constantes.DIR_CM_MAR;
-        distribuciones[3] *= Constantes.DIR_CM_ABR;
-        distribuciones[4] *= Constantes.DIR_CM_MAY;
-        distribuciones[5] *= Constantes.DIR_CM_JUN;
-        distribuciones[6] *= Constantes.DIR_CM_JUL;
-        distribuciones[7] *= Constantes.DIR_CM_AGO;
-        distribuciones[8] *= Constantes.DIR_CM_SEP;
-        distribuciones[9] *= Constantes.DIR_CM_OCT;
-        distribuciones[10] *= Constantes.DIR_CM_NOV;
-        distribuciones[11] *= Constantes.DIR_CM_DIC;
 
-    }
 
-    public int sumaDistribuciones(){
-        for(int j = 0; j <= 11; j++ ){
-            distribucionesTotales += this.distribuciones[j];
-            setDistribucionesTotales(distribucionesTotales);
-        }
-        return distribucionesTotales;
-    }
+
     */
 }
 
