@@ -73,10 +73,41 @@ public class TaxBook{
     public void case5(){
         // LOGICA DE PROCESAR LOS RETIROS
         System.out.println("Seleccionó generar RRE");
-        System.out.println(dist.procesarDistribuciones());
 
-        // DELEGAR IMPRESIÓN AL UPDATE BALANCE
+        dist.procesarDistribuciones();
 
+        System.out.println("DIST. REAJ: "+dist.sumaDistribucionesReajustadas());
+        imputacionesAlSac();
+        imputacionesAlRai();
+    }
+
+    public void imputacionesAlSac(){
+        int alcanceSac = (int) Math.ceil(dist.sumaDistribucionesReajustadas() * 0.369863);
+        sac.setImputacionesDelEjercicio(alcanceSac);
+
+        if(sac.getImputacionesDelEjercicio() > sac.getSaldoAntesDeDistribuciones() ){
+            sac.setImputacionesDelEjercicio(sac.getSaldoAntesDeDistribuciones());
+        }
+
+        sac.setSaldoFinal(sac.getSaldoAntesDeDistribuciones() - sac.getImputacionesDelEjercicio());
+
+        System.out.println("IMPUTACIONES DEL EJ. : "+sac.getImputacionesDelEjercicio());
+        System.out.println("SALDO FINAL DEL EJ.  : "+sac.getSaldoFinal());
+    }
+
+    public void imputacionesAlRai(){
+
+        int saldoRaiPreCierre = rai.saldoAntesDeDistribuciones- dist.distribucionesTotalesReajustadas;
+
+        if(saldoRaiPreCierre < 0 ){
+            rai.distribuciones_no_imputadas = dist.distribucionesTotalesReajustadas-rai.saldoAntesDeDistribuciones;
+            rai.imputacionesDelEjercicio=rai.saldoAntesDeDistribuciones;
+            rai.saldoFinal = 0;
+        }
+
+        System.out.println("RAI IMPUTADO   :"+rai.imputacionesDelEjercicio);
+        System.out.println("RAI SALDO FINAL: "+rai.saldoFinal);
+        System.out.println("RAI NO IMPUT   :"+rai.distribuciones_no_imputadas);
     }
 
     //-------------------------------------------------------------------------------------------------------
@@ -93,23 +124,10 @@ public class TaxBook{
 
     public void case5(){
 
-        int sacImputado = (int) Math.ceil(dist.getDistribucionesTotales() * 0.369863);
-
-        if(sacImputado > sac.getSaldoAntesDeDistribuciones() ){
-            sacImputado = sac.getSaldoAntesDeDistribuciones();
-        }
-
-        sac.setSaldoFinal(sac.getSaldoAntesDeDistribuciones() - sacImputado);
 
         // situación del RAI
 
-        rai.setSaldoFinal(rai.getSaldoAntesDeDistribuciones()- dist.getDistribucionesTotales());
 
-        if(rai.getSaldoFinal() < 0 ){
-            rai.setDistribuciones_no_imputadas(Math.abs(dist.getDistribucionesTotales()-rai.getSaldoAntesDeDistribuciones()));
-            rai.setSaldoFinal(0);
-            dist.setDistribucionesTotales(rai.getSaldoAntesDeDistribuciones());
-        }
 
         //-----------------------------------
         // REPORTE FINAL MODULARIZADO
