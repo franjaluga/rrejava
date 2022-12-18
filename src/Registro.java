@@ -51,8 +51,22 @@ public class Registro {
     }
 
 
+    public int getSaldoFinal() {
+        return saldoFinal;
+    }
+
+    public void setSaldoFinal(int saldoFinal) {
+        this.saldoFinal = saldoFinal;
+    }
 
 
+    public int getSaldoAntesDeDistribuciones() {
+        return saldoAntesDeDistribuciones;
+    }
+
+    public void setSaldoAntesDeDistribuciones(int saldoAntesDeDistribuciones) {
+        this.saldoAntesDeDistribuciones = saldoAntesDeDistribuciones;
+    }
 
     //-------------------------------------------------------------------------------------------------------------
     //  GETTERS Y SETTERS
@@ -65,13 +79,6 @@ public class Registro {
 
 
 
-    public int getSaldoAntesDeDistribuciones() {
-        return saldoAntesDeDistribuciones;
-    }
-
-    public void setSaldoAntesDeDistribuciones(int saldoAntesDeDistribuciones) {
-        this.saldoAntesDeDistribuciones = saldoAntesDeDistribuciones;
-    }
 
     public int getImputacionesDelEjercicio() {
         return imputacionesDelEjercicio;
@@ -81,13 +88,6 @@ public class Registro {
         this.imputacionesDelEjercicio = imputacionesDelEjercicio;
     }
 
-    public int getSaldoFinal() {
-        return saldoFinal;
-    }
-
-    public void setSaldoFinal(int saldoFinal) {
-        this.saldoFinal = saldoFinal;
-    }
 
     public int getDistribuciones_no_imputadas() {
         return distribuciones_no_imputadas;

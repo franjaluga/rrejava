@@ -91,13 +91,21 @@ public class TaxBook{
 
         sac.setSaldoFinal(sac.getSaldoAntesDeDistribuciones() - sac.getImputacionesDelEjercicio());
 
-        System.out.println("IMPUTACIONES DEL EJ. : "+sac.getImputacionesDelEjercicio());
-        System.out.println("SALDO FINAL DEL EJ.  : "+sac.getSaldoFinal());
+        System.out.println("SAC->IMPUTACIONES DEL EJ. : "+sac.getImputacionesDelEjercicio());
+        System.out.println("SAC->SALDO FINAL DEL EJ.  : "+sac.getSaldoFinal());
     }
 
-    public void imputacionesAlRai(){
+    public void imputacionesAlRai() {
 
-        int saldoRaiPreCierre = rai.saldoAntesDeDistribuciones- dist.distribucionesTotalesReajustadas;
+        int saldoRaiPreCierre = rai.getSaldoAntesDeDistribuciones() - dist.getDistribucionesTotalesReajustadas();
+
+        System.out.println("RAI->PRE-CIERRE: "+saldoRaiPreCierre);
+        System.out.println("DISTR. NO REAJ.: "+dist.getDistribucionesTotales());
+        System.out.println("DISTR. REAJ->  : "+dist.getDistribucionesTotalesReajustadas() );
+
+
+        /*
+        //rai.saldoAntesDeDistribuciones- dist.distribucionesTotalesReajustadas;
 
         if(saldoRaiPreCierre < 0 ){
             rai.distribuciones_no_imputadas = dist.distribucionesTotalesReajustadas-rai.saldoAntesDeDistribuciones;
@@ -109,6 +117,9 @@ public class TaxBook{
         System.out.println("RAI SALDO FINAL: "+rai.saldoFinal);
         System.out.println("RAI NO IMPUT   :"+rai.distribuciones_no_imputadas);
     }
+    */
+    }
+}
 
     //-------------------------------------------------------------------------------------------------------
     // DE ACÁ CONTINUAR REVISANDO   |---->
@@ -155,68 +166,5 @@ public class TaxBook{
         System.out.println("Ingresa una respuesta válida");
     }
 
-    //     FUNCIONES DEL REPORTE
-    public void imprimirTitulos(){
-        System.out.println("DETALLE........................."+"-----RAI----"+"-----SAC----");
-    }
+*/
 
-    public void imprimirSaldosIniciales(){
-        String dato1 = Funciones.rellenar(rai.getSaldoInicial());
-        String dato2 = Funciones.rellenar(sac.getSaldoInicial());
-
-        System.out.println("Saldos de apertura.............."+dato1+dato2);
-    }
-
-    public void imprimirReajustes(){
-        String dato1 = Funciones.rellenar(rai.getReajuste());
-        String dato2 = Funciones.rellenar(sac.getReajuste());
-        System.out.println("Reajustes (13.3%)..............."+dato1+dato2);
-    }
-
-    public void imprimirSaldoReajustado(){
-        String dato1 =Funciones.rellenar(rai.getSaldoReajustado());
-        String dato2 =Funciones.rellenar(sac.getSaldoReajustado());
-        System.out.println("Saldos reajustados.............."+dato1+dato2);
-    }
-
-    public void imprimirReversos(){
-        String dato1 = Funciones.rellenar(-rai.getReversoSaldo());
-        System.out.println("Reverso del RAI................."+dato1);
-    }
-
-    public void imprimirRaiDelEjercicio(){
-        String dato1 = Funciones.rellenar(rai.getAumentosDelEjercicio());
-        System.out.println("RAI del ejercicio..............."+dato1);
-    }
-
-    public void imprimirSacDelEjercicio(){
-        String dato1 = "            ";
-        String dato2 = Funciones.rellenar(sac.getAumentosDelEjercicio());
-        System.out.println("SAC del ejercicio..............."+dato1+dato2);
-    }
-
-    public void imprimirSaldoAntesDeDistribuciones(){
-        String dato1 = Funciones.rellenar(rai.getSaldoAntesDeDistribuciones());
-        String dato2 = Funciones.rellenar(sac.getSaldoAntesDeDistribuciones());
-        System.out.println("Saldos antes de distribuciones.."+dato1+dato2);
-    }
-
-    public void imprimirDistribuciones(int dato3){
-        String dato1 = Funciones.rellenar(dist.getDistribucionesTotales());
-        String dato2 = Funciones.rellenar(dato3);
-        System.out.println("Distribuciones.................."+dato1+dato2);
-    }
-
-    public void imprimirSaldoRemanente(){
-        String dato1 = Funciones.rellenar(rai.getSaldoFinal());
-        String dato2 = Funciones.rellenar(sac.getSaldoFinal());
-        System.out.println("Saldo Remanente................."+dato1+dato2);
-    }
-
-    public void imprimirDistNoImputadas(){
-        String dato1 = Funciones.rellenar(rai.getDistribuciones_no_imputadas());
-        System.out.println("Dist. no Imp. (Cod. 1193, F22).."+dato1);
-    }
-    */
-
-}
