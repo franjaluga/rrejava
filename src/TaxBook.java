@@ -98,73 +98,22 @@ public class TaxBook{
     public void imputacionesAlRai() {
 
         int saldoRaiPreCierre = rai.getSaldoAntesDeDistribuciones() - dist.getDistribucionesTotalesReajustadas();
-
+        rai.setDistribuciones_no_imputadas(Math.abs(saldoRaiPreCierre));
         System.out.println("RAI->PRE-CIERRE: "+saldoRaiPreCierre);
-        System.out.println("DISTR. NO REAJ.: "+dist.getDistribucionesTotales());
-        System.out.println("DISTR. REAJ->  : "+dist.getDistribucionesTotalesReajustadas() );
-
-
-        /*
-        //rai.saldoAntesDeDistribuciones- dist.distribucionesTotalesReajustadas;
 
         if(saldoRaiPreCierre < 0 ){
-            rai.distribuciones_no_imputadas = dist.distribucionesTotalesReajustadas-rai.saldoAntesDeDistribuciones;
-            rai.imputacionesDelEjercicio=rai.saldoAntesDeDistribuciones;
             rai.saldoFinal = 0;
         }
 
-        System.out.println("RAI IMPUTADO   :"+rai.imputacionesDelEjercicio);
-        System.out.println("RAI SALDO FINAL: "+rai.saldoFinal);
-        System.out.println("RAI NO IMPUT   :"+rai.distribuciones_no_imputadas);
-    }
-    */
+        System.out.println("RAI->RECALCULAR-CIERRE: "+ rai.saldoFinal);
+        System.out.println("DISTR. NO REAJ.: "+dist.getDistribucionesTotales());
+        System.out.println("DISTR. REAJ->  : "+dist.getDistribucionesTotalesReajustadas() );
+
+        System.out.println(("=================="));
+
+        System.out.println("RAI IMPUTADO   :"+rai.getImputacionesDelEjercicio());
+        System.out.println("RAI SALDO FINAL: "+rai.getSaldoFinal());
+        System.out.println("RAI NO IMPUT   :"+rai.getDistribuciones_no_imputadas());
+
     }
 }
-
-    //-------------------------------------------------------------------------------------------------------
-    // DE ACÁ CONTINUAR REVISANDO   |---->
-    //-------------------------------------------------------------------------------------------------------
-
-
-    /*
-    public void case4(){
-        System.out.println("Seleccionó ingresar GRNG");
-        // Función que deduce los GRNG
-    }
-
-
-    public void case5(){
-
-
-        // situación del RAI
-
-
-
-        //-----------------------------------
-        // REPORTE FINAL MODULARIZADO
-        //-----------------------------------
-        imprimirTitulos();
-        imprimirSaldosIniciales();
-        imprimirReajustes();
-        imprimirSaldoReajustado();
-        imprimirReversos();
-        imprimirRaiDelEjercicio();
-        imprimirSacDelEjercicio();
-        imprimirSaldoAntesDeDistribuciones();
-        imprimirDistribuciones(sacImputado);
-        imprimirSaldoRemanente();
-        imprimirDistNoImputadas();
-
-        System.out.println("*******");
-
-        for(int j = 0; j <= 11; j++ ){
-            System.out.println("Mes: "+(j+1)+": "+ dist.distribuciones[j]);
-        }
-    }
-
-    public void caseDefault(){
-        System.out.println("Ingresa una respuesta válida");
-    }
-
-*/
-

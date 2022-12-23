@@ -140,6 +140,7 @@ public class Dis {
     }
 
     public int sumaDistribucionesReajustadas(){
+        int distribucionesTotalesReajustadas = 0;
         for(int j = 0; j <= 11; j++ ){
             distribucionesTotalesReajustadas += distribuciones_reajustadas[j];
         }

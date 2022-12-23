@@ -67,19 +67,6 @@ public class Registro {
     public void setSaldoAntesDeDistribuciones(int saldoAntesDeDistribuciones) {
         this.saldoAntesDeDistribuciones = saldoAntesDeDistribuciones;
     }
-
-    //-------------------------------------------------------------------------------------------------------------
-    //  GETTERS Y SETTERS
-    //-------------------------------------------------------------------------------------------------------------
-
-
-
-
-
-
-
-
-
     public int getImputacionesDelEjercicio() {
         return imputacionesDelEjercicio;
     }
@@ -87,8 +74,6 @@ public class Registro {
     public void setImputacionesDelEjercicio(int imputacionesDelEjercicio) {
         this.imputacionesDelEjercicio = imputacionesDelEjercicio;
     }
-
-
     public int getDistribuciones_no_imputadas() {
         return distribuciones_no_imputadas;
     }
