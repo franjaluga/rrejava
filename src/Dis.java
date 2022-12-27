@@ -124,7 +124,6 @@ public class Dis {
     }
 
     public void procesarDistribuciones(){
-
         distribuciones_reajustadas[0] = (int) (distribuciones[0] * Constantes.DIR_CM_ENE);
         distribuciones_reajustadas[1] = (int) (distribuciones[1] * Constantes.DIR_CM_FEB);
         distribuciones_reajustadas[2] = (int) (distribuciones[2] * Constantes.DIR_CM_MAR);
@@ -146,6 +145,7 @@ public class Dis {
         }
         setDistribucionesTotalesReajustadas(distribucionesTotalesReajustadas);
         return distribucionesTotalesReajustadas;
+
     }
 
     public void setDistribucionesTotalesReajustadas(int data){

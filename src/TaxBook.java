@@ -29,7 +29,6 @@ public class TaxBook{
         sac.setReajuste(sac.getSaldoReajustado() - sac.getSaldoInicial());
 
         updateAndPrintBalance();
-
     }
 
     public void updateAndPrintBalance(){
@@ -119,9 +118,11 @@ public class TaxBook{
 
     public void printImputaciones(){
 
+        rai.setImputacionesDelEjercicio(dist.getDistribucionesTotalesReajustadas());
+
         if(DistributionIsBiggerThanBalance()){
             System.out.println(DistributionIsBiggerThanBalance());
-            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(rai.getSaldoAntesDeDistribuciones())+" | "+Funciones.rellenar(sac.getImputacionesDelEjercicio())+" |");
+            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(rai.getImputacionesDelEjercicio())+" | "+Funciones.rellenar(sac.getImputacionesDelEjercicio())+" |");
         }else{
             System.out.println(DistributionIsBiggerThanBalance());
             System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(dist.getDistribucionesTotalesReajustadas())+" | "+Funciones.rellenar(sac.getImputacionesDelEjercicio())+" |");
@@ -142,5 +143,4 @@ public class TaxBook{
             return false;
         }
     }
-
 }
