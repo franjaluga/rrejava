@@ -14,7 +14,6 @@ public class PrintText {
         System.out.println("1. Ingresar saldos iniciales 01.01.2022");
         System.out.println("2. Ingresar RAI y SAC Propio generado en el año");
         System.out.println("3. Ingresar distribuciones año 2022");
-        System.out.println("=. ================================");
         System.out.println("5. Generar Registro de rentas empresariales 14-A al 31.12.2022");
         System.out.println("0. Salir");
     }

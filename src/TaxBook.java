@@ -134,31 +134,33 @@ public class TaxBook{
 
     public void printImputaciones(){
 
-        int distTotales = dist.getDistribucionesTotales();
 
-        int finalSacDistribution = finalSacDistribution();
+        System.out.println("*******************");
+        int distTotalesReajustadas = dist.getDistribucionesTotales();
+        int raiParaDistribuir = rai.getSaldoAntesDeDistribuciones();
+        int sacParaDistribuir = sac.getSaldoAntesDeDistribuciones();
 
-        if(distTotales > rai.getSaldoAntesDeDistribuciones()){
-            System.out.println("true");
-            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(rai.getSaldoAntesDeDistribuciones())+" | "+Funciones.rellenar(finalSacDistribution)+" |");
-        }else{
-            System.out.println("false");
-            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(dist.getDistribucionesTotales())+" | "+Funciones.rellenar( finalSacDistribution )+" |");
-        }
+        int raiAux = 0;
+        int raiR1 = 0;
+        int raiR2 = 0;
+        int raiR3 = 0;
 
-        /*
-        System.out.println("|===================|=============|==============|");
-        System.out.println("| SALDO             |"+Funciones.rellenar(rai.getSaldoFinal())+" | "+Funciones.rellenar(sac.getSaldoFinal())+" |");
-        System.out.println("|===================|=============|==============|");
-        */
+        int sacR1 = 0;
+        int sacR2 = 0;
 
-        if(distTotales > rai.getSaldoAntesDeDistribuciones()){
-            /*
-            System.out.println("|................................................|");
-            System.out.println("| RAI NO IMPUTADO   |"+Funciones.rellenar(rai.getDistribuciones_no_imputadas())+" | ");
-            System.out.println("|................................................|");
-            */
-        }
+
+        System.out.println("distTotalesReajustadas = " + distTotalesReajustadas);
+        System.out.println("¿Cuanto hay de RAI? " + raiParaDistribuir);
+        System.out.println("¿Cuanto hay de SAC? " + sacParaDistribuir);
+
+
+        // RESOLVER EL RAI EN 3 PARTES
+        // RESOLVER EL SAC EN 2 PARTES
+
+
+        System.out.println("I1: " + raiR1 + " | " + sacR1);
+        System.out.println("I2: " + raiR2 + " | " + sacR2);
+        System.out.println("I3: " + raiR3);
 
     }
 }
