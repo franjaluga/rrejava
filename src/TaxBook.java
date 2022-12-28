@@ -7,11 +7,12 @@ public class TaxBook{
 
     Scanner consoleUserSubMenuResponse = new Scanner(System.in);
 
-    public void createBook(){
+    public void initializeBook(){
         rai.inicializar();
         sac.inicializar();
         dist.inicializar();
     }
+
 
     public void case1(){
         System.out.println("Seleccionó ingresar datos iniciales");
@@ -89,17 +90,32 @@ public class TaxBook{
     }
 
     public void imputacionesAlSac(){
-        int alcanceSac = (int) Math.ceil(dist.sumaDistribucionesReajustadas() * 0.369863);
-        sac.setImputacionesDelEjercicio(alcanceSac);
 
-        if(sac.getImputacionesDelEjercicio() > sac.getSaldoAntesDeDistribuciones() ){
+        int alcanceSac = (int) Math.ceil(sac.getSaldoAntesDeDistribuciones() / 0.369863);
+
+        if(sac.getImputacionesDelEjercicio() > alcanceSac ){
             sac.setImputacionesDelEjercicio(sac.getSaldoAntesDeDistribuciones());
+        }else{
+            sac.setImputacionesDelEjercicio((int) (dist.getDistribucionesTotales() * 0.369863));
         }
+    }
 
-        sac.setSaldoFinal(sac.getSaldoAntesDeDistribuciones() - sac.getImputacionesDelEjercicio());
+
+    public int finalSacDistribution(){
+        int finalSacDist = 0;
+        int maxSacDist = sac.getSaldoAntesDeDistribuciones();
+        int actualSacDist = sac.getImputacionesDelEjercicio();
+
+        if(actualSacDist > maxSacDist){
+            finalSacDist = maxSacDist;
+        }else{
+            finalSacDist = actualSacDist;
+        }
+        return finalSacDist;
     }
 
     public void imputacionesAlRai() {
+        rai.setImputacionesDelEjercicio(dist.getDistribucionesTotalesReajustadas());
 
         int saldoRaiPreCierre = rai.getSaldoAntesDeDistribuciones() - dist.getDistribucionesTotalesReajustadas();
         rai.setDistribuciones_no_imputadas(Math.abs(saldoRaiPreCierre));
@@ -118,29 +134,31 @@ public class TaxBook{
 
     public void printImputaciones(){
 
-        rai.setImputacionesDelEjercicio(dist.getDistribucionesTotalesReajustadas());
+        int distTotales = dist.getDistribucionesTotales();
 
-        if(DistributionIsBiggerThanBalance()){
-            System.out.println(DistributionIsBiggerThanBalance());
-            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(rai.getImputacionesDelEjercicio())+" | "+Funciones.rellenar(sac.getImputacionesDelEjercicio())+" |");
+        int finalSacDistribution = finalSacDistribution();
+
+        if(distTotales > rai.getSaldoAntesDeDistribuciones()){
+            System.out.println("true");
+            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(rai.getSaldoAntesDeDistribuciones())+" | "+Funciones.rellenar(finalSacDistribution)+" |");
         }else{
-            System.out.println(DistributionIsBiggerThanBalance());
-            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(dist.getDistribucionesTotalesReajustadas())+" | "+Funciones.rellenar(sac.getImputacionesDelEjercicio())+" |");
+            System.out.println("false");
+            System.out.println("| RAI IMPUTADO      |"+Funciones.rellenar(dist.getDistribucionesTotales())+" | "+Funciones.rellenar( finalSacDistribution )+" |");
         }
 
+        /*
         System.out.println("|===================|=============|==============|");
         System.out.println("| SALDO             |"+Funciones.rellenar(rai.getSaldoFinal())+" | "+Funciones.rellenar(sac.getSaldoFinal())+" |");
         System.out.println("|===================|=============|==============|");
-        //System.out.println("|................................................|");
-        //System.out.println("| RAI NO IMPUT      |"+Funciones.rellenar(rai.getDistribuciones_no_imputadas())+" | ");
-        //System.out.println("|................................................|");
-    }
+        */
 
-    public boolean DistributionIsBiggerThanBalance(){
-        if(dist.getDistribucionesTotalesReajustadas() > rai.getSaldoAntesDeDistribuciones()){
-            return true;
-        }else{
-            return false;
+        if(distTotales > rai.getSaldoAntesDeDistribuciones()){
+            /*
+            System.out.println("|................................................|");
+            System.out.println("| RAI NO IMPUTADO   |"+Funciones.rellenar(rai.getDistribuciones_no_imputadas())+" | ");
+            System.out.println("|................................................|");
+            */
         }
+
     }
 }

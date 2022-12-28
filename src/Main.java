@@ -4,7 +4,7 @@ public class Main {
 
         PrintText.titles();
         TaxBook currentBook = new TaxBook();
-        currentBook.createBook();
+        currentBook.initializeBook();
 
         Scanner scanConsoleUserResponse = new Scanner(System.in);
         TaxBook runResponse = new TaxBook();

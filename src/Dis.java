@@ -143,9 +143,7 @@ public class Dis {
         for(int j = 0; j <= 11; j++ ){
             distribucionesTotalesReajustadas += distribuciones_reajustadas[j];
         }
-        setDistribucionesTotalesReajustadas(distribucionesTotalesReajustadas);
         return distribucionesTotalesReajustadas;
-
     }
 
     public void setDistribucionesTotalesReajustadas(int data){
