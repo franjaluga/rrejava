@@ -9,6 +9,7 @@ public class Dis {
     int distribucionesTotalesReajustadas=0;
 
 
+
     public void inicializar(){
         distribuciones = new int[12];
         distribuciones_reajustadas = new int[12];

@@ -13,4 +13,5 @@ public class Rai extends Registro{
     public void setReversoSaldo(int reversoSaldo) {
         this.reversoSaldo = reversoSaldo;
     }
+
 }

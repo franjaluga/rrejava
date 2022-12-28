@@ -81,4 +81,5 @@ public class Registro {
     public void setDistribuciones_no_imputadas(int distribuciones_no_imputadas) {
         this.distribuciones_no_imputadas = distribuciones_no_imputadas;
     }
+
 }

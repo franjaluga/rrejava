@@ -29,7 +29,7 @@ public class TaxBook{
         rai.setReajuste(rai.getSaldoReajustado() - rai.getSaldoInicial());
         sac.setReajuste(sac.getSaldoReajustado() - sac.getSaldoInicial());
 
-        updateAndPrintBalance();
+        updateBalance();
     }
 
     public void updateAndPrintBalance(){
@@ -54,7 +54,7 @@ public class TaxBook{
         System.out.println("| SAC del Año       |"+Funciones.rellenar(0)+" | "+Funciones.rellenar(sac.getAumentosDelEjercicio())+" |");
         System.out.println("| RAI del Año       |"+Funciones.rellenar(rai.getAumentosDelEjercicio())+" | "+Funciones.rellenar(0)+" |");
         System.out.println("|===================|=============|==============|");
-        System.out.println("| RAI ant. dist.    |"+Funciones.rellenar(rai.getSaldoAntesDeDistribuciones())+" | "+Funciones.rellenar(sac.getSaldoAntesDeDistribuciones())+" |");
+        System.out.println("| Sdo. ant. dist.   |"+Funciones.rellenar(rai.getSaldoAntesDeDistribuciones())+" | "+Funciones.rellenar(sac.getSaldoAntesDeDistribuciones())+" |");
         System.out.println("|===================|=============|==============|");
     }
 
@@ -66,7 +66,7 @@ public class TaxBook{
         System.out.println("Ingrese SAC del ejercicio generado en 2022");
         sac.setAumentosDelEjercicio(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
 
-        updateAndPrintBalance();
+        updateBalance();
     }
 
 
@@ -128,39 +128,91 @@ public class TaxBook{
     }
 
     public void printReporte(){
-        updateAndPrintBalance();
+        updateBalance();
         printImputaciones();
     }
 
     public void printImputaciones(){
 
-
-        System.out.println("*******************");
         int distTotalesReajustadas = dist.getDistribucionesTotales();
         int raiParaDistribuir = rai.getSaldoAntesDeDistribuciones();
         int sacParaDistribuir = sac.getSaldoAntesDeDistribuciones();
 
         int raiAux = 0;
-        int raiR1 = 0;
-        int raiR2 = 0;
-        int raiR3 = 0;
 
-        int sacR1 = 0;
-        int sacR2 = 0;
+        int raiCC = 0;
+        int raiSC = 0;
 
+        int raiNI = 0;
 
-        System.out.println("distTotalesReajustadas = " + distTotalesReajustadas);
-        System.out.println("¿Cuanto hay de RAI? " + raiParaDistribuir);
-        System.out.println("¿Cuanto hay de SAC? " + sacParaDistribuir);
+        int sacALC = (int) ( sacParaDistribuir / 0.369863 );
 
+        int sacCC1 = 0;
+        int sacCC2 = 0;
 
         // RESOLVER EL RAI EN 3 PARTES
+
+        if(raiParaDistribuir >= distTotalesReajustadas){
+            // el RAI ALCANZA
+            raiAux = distTotalesReajustadas;
+        }else{
+            // el RAI NO alcanza
+            raiAux = raiParaDistribuir;
+            raiNI = distTotalesReajustadas - raiAux;
+        }
+
+        //AHORA, SE DEBE DIVIDIR ENTRE RAICC Y RAISC, ESO DEPENDE DEL sacALC
+        if(sacALC > raiAux){
+            // el SAC ALCANZA
+            raiCC = raiAux;
+        }else{
+            // el SAC no alcanza
+            raiCC = sacALC;
+            raiSC = raiAux - sacALC;
+        }
+
         // RESOLVER EL SAC EN 2 PARTES
 
+        // como raiCC siempre está bien calculado, el sacCC1 VA DIRECTO
+        sacCC1 = (int) ( Math.ceil(raiCC * 0.369863) );
+        if(sacCC1 > sacParaDistribuir){
+            sacCC1 = sacParaDistribuir;
+        }
 
-        System.out.println("I1: " + raiR1 + " | " + sacR1);
-        System.out.println("I2: " + raiR2 + " | " + sacR2);
-        System.out.println("I3: " + raiR3);
+        // en cambio sacCC2, dependerá si ya no queda RAI.
 
-    }
+        // imputacionesSAC = retiros * 0.369863
+        // si las imputacionesSAC > sacCC1, entonces anotar el saldo
+        // imputacionesSAC - sacCC2
+
+
+        if( Math.ceil(distTotalesReajustadas * 0.369863) >  sacCC1 ){
+            sacCC2 = (int) ( Math.ceil(distTotalesReajustadas * 0.369863) ) - sacCC1;
+
+            if( (sacCC1 + sacCC2) > sacParaDistribuir){
+
+                sacCC2 = sacParaDistribuir - sacCC1;
+                if(sacCC2 < 0){
+                    sacCC2 = 0;
+                }
+            }
+        }
+
+        int remanenteRAI;
+        int remanenteSAC;
+
+        remanenteRAI = raiParaDistribuir - raiCC - raiSC;
+        remanenteSAC = sacParaDistribuir - sacCC1 - sacCC2;
+
+        printBalanceUpdated();
+
+        System.out.println("| Dist.             |                            |");
+        System.out.println("|                   |"+Funciones.rellenar(raiCC)+" | "+Funciones.rellenar(sacCC1)+" |");
+        System.out.println("|                   |"+Funciones.rellenar(raiSC)+" | "+Funciones.rellenar(sacCC2)+" |");
+        System.out.println("|===================|=============|==============|");
+        System.out.println("| Remanentes        |"+Funciones.rellenar( remanenteRAI )+" | "+Funciones.rellenar( remanenteSAC )+" |");
+        System.out.println("|===================|=============|==============|");
+        System.out.println("| Sdo. no imput.    |"+Funciones.rellenar(raiNI)+" | ");
+        System.out.println("|===================|=============|");
+            }
 }
