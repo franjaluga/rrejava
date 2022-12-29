@@ -2,7 +2,7 @@ public class PrintText {
     public static void titles(){
         limpiar();
         System.out.println("|======================================================================|");
-        System.out.println("| Comprobación RRE 14-A - Régimen General Semi-Integrado (versión alfa)|");
+        System.out.println("| Cálculo RRE 14-A - Régimen General Semi-Integrado (versión beta)     |");
         System.out.println("|======================================================================|");
         System.out.println("| Se usará TCV = 0.369863                                              |");
         System.out.println("| Se usará CM  = 13.3% (AT2023)                                        |");

@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class TaxBook{
@@ -13,7 +14,29 @@ public class TaxBook{
         dist.inicializar();
     }
 
+    public void limpiarPantalla(){
+        try {
+            System.out.println("Presione Enter para continuar...");
+            new java.util.Scanner(System.in).nextLine();
 
+            String sistemaOperativo = System.getProperty("os.name");
+            ArrayList<String> comando= new ArrayList<String>();
+            if(sistemaOperativo.contains("Windows")){
+                comando.add("cmd");
+                comando.add("/C");
+                comando.add("cls");
+            }else{
+                comando.add("clear"); //UNIX => MAC, LINUX
+            }
+            ProcessBuilder pb = new ProcessBuilder(comando);
+            Process iniciarProceso =pb.inheritIO().start();
+            iniciarProceso.waitFor();
+            System.out.println("Se han ingresado Datos");
+
+        } catch (Exception e) {
+            System.err.println("Error al limpiar la pantalla"+e.getMessage());
+        }
+    }
     public void case1(){
         System.out.println("Seleccionó ingresar datos iniciales");
         System.out.println("Ingrese RAI de apertura (01.01.2022)");
@@ -30,6 +53,7 @@ public class TaxBook{
         sac.setReajuste(sac.getSaldoReajustado() - sac.getSaldoInicial());
 
         updateBalance();
+        limpiarPantalla();
     }
 
     public void updateAndPrintBalance(){
@@ -45,7 +69,7 @@ public class TaxBook{
 
     public void printBalanceUpdated(){
         System.out.println("|===================|=============|==============|");
-        System.out.println("| Operaciones       |    RAI      |    SAC       |");
+        System.out.println("| Operaciones       |     RAI     |   SAC-CC-CR  |");
         System.out.println("|===================|=============|==============|");
         System.out.println("| RAI(01.01.2022)   |"+Funciones.rellenar(rai.getSaldoInicial()) +" | "+Funciones.rellenar(sac.getSaldoInicial())+" |");
         System.out.println("| RAI(Reajuste)     |"+Funciones.rellenar(rai.getReajuste())+" | "+Funciones.rellenar(sac.getReajuste())+" |");
@@ -67,6 +91,7 @@ public class TaxBook{
         sac.setAumentosDelEjercicio(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
 
         updateBalance();
+        limpiarPantalla();
     }
 
 
@@ -76,6 +101,7 @@ public class TaxBook{
         System.out.println("|================================================|");
         System.out.println("|  Se ingresaron distribuciones por : "+ dist.getDistribucionesTotales());
         System.out.println("|================================================|");
+        limpiarPantalla();
     }
 
     public void case5(){
@@ -87,6 +113,7 @@ public class TaxBook{
         imputacionesAlSac();
         imputacionesAlRai();
         printReporte();
+        limpiarPantalla();
     }
 
     public void imputacionesAlSac(){

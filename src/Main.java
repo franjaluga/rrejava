@@ -10,7 +10,6 @@ public class Main {
         TaxBook runResponse = new TaxBook();
         int consoleUserMenuResponse;
 
-
         do {
             PrintText.menu();
             consoleUserMenuResponse = Integer.parseInt(scanConsoleUserResponse.nextLine());
