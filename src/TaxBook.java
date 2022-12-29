@@ -46,8 +46,8 @@ public class TaxBook{
         sac.setSaldoInicial(Integer.parseInt(consoleUserSubMenuResponse.nextLine()));
 
 
-        rai.setSaldoReajustado((int) Math.ceil(rai.saldoInicial * (1 + Constantes.CM_22)));
-        sac.setSaldoReajustado((int) Math.ceil(sac.saldoInicial * (1 + Constantes.CM_22)));
+        rai.setSaldoReajustado((int) Math.round(rai.saldoInicial * (1 + Constantes.CM_22)));
+        sac.setSaldoReajustado((int) Math.round(sac.saldoInicial * (1 + Constantes.CM_22)));
 
         rai.setReajuste(rai.getSaldoReajustado() - rai.getSaldoInicial());
         sac.setReajuste(sac.getSaldoReajustado() - sac.getSaldoInicial());
@@ -118,7 +118,7 @@ public class TaxBook{
 
     public void imputacionesAlSac(){
 
-        int alcanceSac = (int) Math.ceil(sac.getSaldoAntesDeDistribuciones() / 0.369863);
+        int alcanceSac = (int) Math.round(sac.getSaldoAntesDeDistribuciones() / 0.369863);
 
         if(sac.getImputacionesDelEjercicio() > alcanceSac ){
             sac.setImputacionesDelEjercicio(sac.getSaldoAntesDeDistribuciones());
@@ -201,7 +201,7 @@ public class TaxBook{
         // RESOLVER EL SAC EN 2 PARTES
 
         // como raiCC siempre está bien calculado, el sacCC1 VA DIRECTO
-        sacCC1 = (int) ( Math.ceil(raiCC * 0.369863) );
+        sacCC1 = (int) ( Math.round(raiCC * 0.369863) );
         if(sacCC1 > sacParaDistribuir){
             sacCC1 = sacParaDistribuir;
         }
@@ -213,8 +213,8 @@ public class TaxBook{
         // imputacionesSAC - sacCC2
 
 
-        if( Math.ceil(distTotalesReajustadas * 0.369863) >  sacCC1 ){
-            sacCC2 = (int) ( Math.ceil(distTotalesReajustadas * 0.369863) ) - sacCC1;
+        if( Math.round(distTotalesReajustadas * 0.369863) >  sacCC1 ){
+            sacCC2 = (int) ( Math.round(distTotalesReajustadas * 0.369863) ) - sacCC1;
 
             if( (sacCC1 + sacCC2) > sacParaDistribuir){
 
